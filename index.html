@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Penilaian Proposal Inovasi Daerah Cianjur 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --border-color: #e2e8f0;
+            --badge-umum: #ebf8ff;
+            --badge-umum-text: #2b6cb0;
+            --badge-siswa: #f0fff4;
+            --badge-siswa-text: #276749;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .nav-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .nav-btn {
+            background-color: #e2e8f0;
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+        .section-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 40px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .card h3 {
+            font-size: 1.15rem;
+            color: var(--primary);
+            margin-right: 10px;
+        }
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .badge-umum {
+            background-color: var(--badge-umum);
+            color: var(--badge-umum-text);
+        }
+        .badge-siswa {
+            background-color: var(--badge-siswa);
+            color: var(--badge-siswa-text);
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn:hover {
+            background-color: var(--primary);
+        }
+        
+        /* Viewer Container Styles */
+        #main-portal {
+            display: block;
+        }
+        #detail-view {
+            display: none;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .back-bar {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        #detail-frame {
+            width: 100%;
+            height: 800px;
+            border: none;
+            background: #fff;
+            border-radius: 6px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Portal Penilaian Proposal Inovasi Daerah</h1>
+            <p>Kabupaten Cianjur Tahun 2026</p>
+        </header>
+
+        <!-- HALAMAN UTAMA / PORTAL -->
+        <div id="main-portal">
+            <div class="nav-filter">
+                <button class="nav-btn active" onclick="filterCategory('all', this)">Semua Kategori</button>
+                <button class="nav-btn" onclick="filterCategory('umum', this)">Kategori Umum</button>
+                <button class="nav-btn" onclick="filterCategory('siswa', this)">Kategori Pelajar / Mahasiswa</button>
+            </div>
+
+            <!-- KATEGORI UMUM -->
+            <div class="category-section" data-cat="umum">
+                <h2 class="section-title">📂 Kategori Umum</h2>
+                <div class="grid">
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>MBG Smart Box</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Kotak pemantauan kualitas makanan katering sekolah otomatis berbasis sensor IoT.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/MBG Smart Box.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Hidroponik Surya Berbasis Daur Ulang Air Bekas Wudhu</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Sistem pertanian perkotaan mandiri energi dan ramah lingkungan di lingkungan masjid.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/Hidroponik Surya Berbasis Daur Ulang Air Bekas Wudhu.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Simulasi Bahaya Asap Rokok</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Alat peraga edukasi interaktif kampanye Kawasan Tanpa Rokok (KTR).</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/Simulasi Bahaya Asap Rokok.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>CAKET: Cianjur Agrowisata dan Ketahanan Pangan</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Integrasi destinasi desa wisata berbasis ketahanan pangan dan BUMDes.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/CAKET: Cianjur Agrowisata dan Ketahanan Pangan.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Revitalisasi Pewarisan Mamaos</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Pelestarian seni tembang Sunda Cianjuran melalui ekosistem digital dan pusat budaya.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/Revitalisasi Pewarisan Mamaos.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Kampung Influencer</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Pemberdayaan konten kreator lokal sebagai motor pemasaran digital UMKM Cianjur.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/Kampung Influencer.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Wira Inspira – Inspirasi Usaha Indonesia</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Media podcast dan inkubator inspirasi wirausahawan pemula serta UMKM.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/Wira Inspira – Inspirasi Usaha Indonesia.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Mengubah Limbah Batik menjadi Karya dan Nilai</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Pengolahan limbah kain batik lokal menjadi kerajinan bernilai ekonomis tinggi.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/Mengubah Limbah Batik menjadi Karya dan Nilai.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>SiakadMU – Sistem Akademik Muhammadiyah Terintegrasi</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Platform manajemen sekolah terpadu untuk absensi, jurnal, dan laporan akademik.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/SiakadMU – Sistem Akademik Muhammadiyah Terintegrasi.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Inclusive Voice Learning (IVL)</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Platform pembelajaran berbasis suara interaktif untuk siswa tunanetra / inklusif.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/Inclusive Voice Learning (IVL).html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>SILAT MANDIRI</h3>
+                                <span class="badge badge-umum">Umum</span>
+                            </div>
+                            <p>Sistem Pelatihan Keterampilan Survival Dasar bagi Siswa Sekolah Dasar.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Umum/SILAT MANDIRI.html')">Buka Penilaian</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KATEGORI PELAJAR / MAHASISWA -->
+            <div class="category-section" data-cat="siswa">
+                <h2 class="section-title">📂 Kategori Pelajar / Mahasiswa</h2>
+                <div class="grid">
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>WARCI (Warisan Interaktif Budaya Cianjur)</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Media pembelajaran berbasis Augmented Reality (AR) dan kuis kebudayaan lokal.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/WARCI (Warisan Interaktif Budaya Cianjur).html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Platform Digital BINAKU (Bimbingan Konselingku)</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Platform terintegrasi satu pintu untuk administrasi konseling dan laporan siswa.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/binaku.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>SUFIC'C (Sustainable Financial Clinic Cianjur)</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Klinik keuangan digital untuk pemetaan literasi dan kesehatan finansial UMKM.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/sufic.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Smart Health Watcher</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Sistem pemantauan tanda vital pasien rawat jalan secara real-time berbasis IoT.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/Smart Health Watcher.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>Pemanfaatan Limbah MBG untuk Budidaya Maggot</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Ekonomi sirkular pengolahan limbah organik makanan sekolah menjadi protein pakan lele.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/Maggot.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>PINTAR PESANTREN</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Pusat integrasi pendidikan formal dan transformasi akademik pondok pesantren.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/PINTAR PESANTREN.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>NUSACOMPOST</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Sistem komposter termofilik otomatis berbasis Raspberry Pi & Edge AI.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/nusacompost.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>AMENG (Aplikasi Modern Ekosistem Navigasi Geliat Wisata)</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Platform navigasi dan tiket wisata terpadu dilengkapi fitur AI ExploreBot.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/ameng.html')">Buka Penilaian</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>COGNITRACE AI</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Platform diagnostik kognitif berbasis AI untuk memetakan miskonsepsi belajar siswa.</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/CogniTrace AI.html')">Buka Penilaian</button>
+                    </div>
+
+                     <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <h3>ECO-CLEANIC</h3>
+                                <span class="badge badge-siswa">Pelajar / Mahasiswa</span>
+                            </div>
+                            <p>Inovasi Produk Pembersih Agen Bioremediasi Melalui Transformasi Limbah Kulit Jeruk MBG Berbasis Ekonomi Sirkular</p>
+                        </div>
+                        <button class="btn" onclick="openDetail('Siswa/jeruk.html')">Buka Penilaian</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HALAMAN DETAIL (TAMPIL DI HALAMAN YANG SAMA) -->
+        <div id="detail-view">
+            <div class="back-bar">
+                <button class="btn" onclick="closeDetail()">&larr; Kembali ke Halaman Utama</button>
+            </div>
+            <iframe id="detail-frame" src=""></iframe>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Tim Penilai / Juri Inovasi Daerah Kabupaten Cianjur. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function openDetail(url) {
+            document.getElementById('main-portal').style.display = 'none';
+            const detailView = document.getElementById('detail-view');
+            detailView.style.display = 'block';
+            document.getElementById('detail-frame').src = url;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeDetail() {
+            document.getElementById('detail-frame').src = '';
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('main-portal').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterCategory(category, btnElement) {
+            // Update active button state
+            const buttons = document.querySelectorAll('.nav-filter .nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Show/Hide sections
+            const sections = document.querySelectorAll('.category-section');
+            sections.forEach(section => {
+                if (category === 'all') {
+                    section.style.display = 'block';
+                } else {
+                    if (section.getAttribute('data-cat') === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
